@@ -6,15 +6,25 @@ namespace ManejoPresupuesto.Models
     {
         public int Id { get; set; }
         public int UsuarioId { get; set; }
-        public DateTime FechaTransaccion { get; set; } = DateTime.Today;
+        [Display(Name ="Fecha Transacción")]
+        //[DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
+        public DateTime FechaTransaccion { get; set; } = DateTime.Parse(DateTime.Now.ToString("g")); //fecha año, mes, dia. hora,s minutos, am o pm
+
+        //public DateTime FechaTransaccion { get; set; } = DateTime.Parse(DateTime.Now.ToString("yyyy-MM-dd hh:MM tt")); //fecha año, mes, dia. hora,s minutos, am o pm
+        //public DateTime FechaTransaccion { get; set; } = DateTime.Now; //fecha y hora actual
+        //public DateTime FechaTransaccion { get; set; } = DateTime.Today; //fecha actual
         public decimal Monto { get; set; }
 
         [Range(1, maximum: int .MaxValue, ErrorMessage ="Debe seleccionar una categoría")]
+        [Display(Name ="Categoría")]
         public int CategoriaId { get; set; }
         [StringLength(maximumLength: 1000, ErrorMessage ="La nota no puede pasar de {1} caracteres")]
         public string Nota { get; set; }
 
         [Range(1, maximum: int.MaxValue, ErrorMessage = "Debe seleccionar una cuenta")]
+
+        [Display(Name = "Cuenta")]
         public int CuentaId { get; set; }
     }
 }
