@@ -9,7 +9,8 @@ namespace ManejoPresupuesto.Controllers
         private readonly IRepositorioTiposCuentas _repositorioTiposCuentas;
         private readonly IServicioUsuarios _servicioUsuarios;
 
-        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas, IServicioUsuarios servicioUsuarios)
+        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas,
+            IServicioUsuarios servicioUsuarios)
         {
             _repositorioTiposCuentas = repositorioTiposCuentas;
             _servicioUsuarios = servicioUsuarios;
@@ -87,6 +88,7 @@ namespace ManejoPresupuesto.Controllers
             }
             return View(tipoCuenta);
         }
+
         [HttpPost]
         public async Task<IActionResult> BorrarTipoCuenta(int id)
         {
