@@ -86,6 +86,7 @@ namespace ManejoPresupuesto.Controllers
                 return RedirectToAction("NoEncontrado", "Home");
             }
             var modelo = mapper.Map<TransaccionActualizacionViewModel>(transaccion);
+            modelo.MontoAnterior = modelo.Monto;
 
             if(modelo.TipoOperacionId == TipoOperacion.Gasto)
             {
