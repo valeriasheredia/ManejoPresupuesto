@@ -7,6 +7,7 @@ namespace ManejoPresupuesto.Servicios
     public interface IRepositorioCategorias
     {
         Task Crear(Categoria categoria);
+        Task<IEnumerable<Categoria>> Obtener(int usuarioId);
     }
     public class RepositorioCategorias: IRepositorioCategorias
     {
@@ -19,11 +20,20 @@ namespace ManejoPresupuesto.Servicios
         public async Task Crear(Categoria categoria)
         {
             using var connection = new SqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>(@"insert into Categorias (Nombre, TipoOperacionId, UsuarioId)
-                                                                values (@Nombre, @TipoOperacionId, @UsuarioId);
-
-                                                                select SCOPE_IDENTITY();", categoria);
+            var id = await connection.QuerySingleAsync<int>(@"
+                    INSERT INTO Categorias (Nombre, TipoOperacionId, UsuarioId)
+                           Values (@Nombre, @TipoOperacionId, @UsuarioId);
+                           SELECT SCOPE_IDENTITY();
+                            ", categoria);
             categoria.Id = id;
+        }
+
+         public async Task<IEnumerable<Categoria>> Obtener(int usuarioId)
+        {
+            using var connection = new SqlConnection(connectionString);
+            return await connection.QueryAsync<Categoria>("SELECT * " +
+                "                                           FROM Categorias " +
+                "                                           WHERE UsuarioId = @UsuarioId", new { usuarioId });
         }
     }
 }
