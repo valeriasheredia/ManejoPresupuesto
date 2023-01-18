@@ -59,7 +59,7 @@ namespace ManejoPresupuesto.Controllers
             if(mes <= 0 || mes > 12 || año <= 1990)
             {
                 var hoy = DateTime.Today;
-                fechaInicio = new DateTime(hoy.Year, hoy.Month, 1)
+                fechaInicio = new DateTime(hoy.Year, hoy.Month, 1);
             }
             else
             {
@@ -88,6 +88,15 @@ namespace ManejoPresupuesto.Controllers
             modelo.TransaccionesAgrupadas = transaccionesPorFecha;
             modelo.FechaInicio = fechaInicio;
             modelo.FechaFin= fechaFin;
+
+            ViewBag.mesAnterior = fechaInicio.AddMonths(-1).Month;
+            ViewBag.añoAnterior = fechaInicio.AddMonths(-1).Year;
+            ViewBag.mesPosterior = fechaInicio.AddMonths(1).Month;
+            ViewBag.añoPosterior = fechaInicio.AddMonths(1).Year;
+
+            ViewBag.urlRetorno = HttpContext.Request.Path + HttpContext.Request.QueryString;
+
+
 
             return View(modelo);
         }
