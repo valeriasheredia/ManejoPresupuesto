@@ -93,7 +93,11 @@ namespace ManejoPresupuesto.Controllers
             }
             agrupado = agrupado.OrderByDescending(x => x.Semana).ToList();
 
-            return View();
+            var modelo = new ReporteSemanalViewModel();
+            modelo.TransaccionesPorSemana= agrupado;
+            modelo.FechaReferencia = fechaReferencia;
+
+            return View(modelo);
         }
 
         public IActionResult Mensual()
