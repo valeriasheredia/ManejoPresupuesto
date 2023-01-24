@@ -43,7 +43,6 @@ namespace ManejoPresupuesto.Controllers
 
            return View(modelo);
         }
-
         public async Task<IActionResult> Semanal(int mes, int año)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
@@ -102,7 +101,6 @@ namespace ManejoPresupuesto.Controllers
 
             return View(modelo);
         }
-
         public async Task<IActionResult> Mensual(int año)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
@@ -147,12 +145,10 @@ namespace ManejoPresupuesto.Controllers
 
             return View(modelo);
         }
-
         public IActionResult ExcelReporte()
         {
             return View();
         }
-
         [HttpGet]
         public async Task<FileResult> ExportarExcelPorMes(int mes, int año)
         {
@@ -170,7 +166,6 @@ namespace ManejoPresupuesto.Controllers
             var nombreArchivo = $"Manejo Presupuesto - {fechaInicio.ToString("MMM yyyy")}.xlsx";
             return GenerarExcel(nombreArchivo, transacciones);
         }
-
         [HttpGet]
         public async Task <FileResult> ExportarExcelPorAño (int año)
         {
@@ -187,7 +182,6 @@ namespace ManejoPresupuesto.Controllers
             var nombreArchivo = $"Manejo Presupuesto - {fechaInicio.ToString("yyyy")}.xlsx";
             return GenerarExcel(nombreArchivo, transacciones);
         }
-
         [HttpGet]
         public async Task<FileResult> ExportarExcelTodo()
         {
@@ -204,7 +198,6 @@ namespace ManejoPresupuesto.Controllers
             var nombreArchivo = $"Manejo Presupuestos - {DateTime.Today.ToString("dd-MM-yyyy")}.xslx";
             return GenerarExcel(nombreArchivo, transacciones);
         }
-
         private FileResult GenerarExcel(string nombreArchivo,
             IEnumerable<Transaccion> transacciones)
         {
@@ -385,7 +378,8 @@ namespace ManejoPresupuesto.Controllers
             return cuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
         }
 
-        private async Task<IEnumerable<SelectListItem>>ObtenerCategorias(int usuarioId, TipoOperacion tipoOperacion)
+        private async Task<IEnumerable<SelectListItem>> ObtenerCategorias(int usuarioId,
+           TipoOperacion tipoOperacion)
         {
             var categorias = await repositorioCategorias.Obtener(usuarioId, tipoOperacion);
             return categorias.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));

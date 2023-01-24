@@ -54,13 +54,12 @@
                     var dataBSTarget = "#" + id;
                     var claseTipoCuenta = ObtenerClaseBalance(tipoCuenta.Balance);
                 }
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                data-bs-target="@dataBSTarget">
-            <span class="me-3">
-                <span><strong>@tipoCuenta.TipoCuenta</strong></span>
-                <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>
-            </span>
-            </button>
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"data-bs-target="@dataBSTarget">
+                    <span class="me-3">
+                        <span><strong>@tipoCuenta.TipoCuenta</strong></span>
+                        <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>
+                    </span>
+                </button>
             </h2>
             <div id="@id" class="accordion-collapse collapse show">
                 <div>

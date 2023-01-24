@@ -2,3 +2,21 @@
     ViewData["Title"] = "Reporte Calendario";
 }
 <partial name="_Submenu" Model="SubMenuTransacciones.Calendario"/>
+
+<div id="calendario"></div>
+
+@section Scripts{
+    <script src="~/lib/fullcalendar/main.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            var calendarioEl = document.getElementById('calendario');
+            const calendario= new FullCalendar.Calendar(calendarioEl,{
+                dayMaxEventRows: 3,
+                initialView: 'dayGridMonth',
+
+            });
+            calendario.render();
+        })
+    </script>
+}
