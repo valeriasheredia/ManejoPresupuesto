@@ -14,7 +14,19 @@
             const calendario= new FullCalendar.Calendar(calendarioEl,{
                 dayMaxEventRows: 3,
                 initialView: 'dayGridMonth',
-
+                events: [
+                    {
+                    title: '2.500',
+                    start: '2023-01-25',
+                    end: '2023-01-25'
+                },
+                     {
+                    title: '1.500',
+                    start: '2023-01-25',
+                    end: '2023-01-25',
+                    color: 'red'
+                }
+                ]
             });
             calendario.render();
         })
