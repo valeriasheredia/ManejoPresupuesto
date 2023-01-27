@@ -31,7 +31,6 @@ namespace ManejoPresupuesto.Controllers
             if(resultado.Succeeded)
             {
                 return RedirectToAction("Index", "Transacciones");
-
             }
             else
             {
