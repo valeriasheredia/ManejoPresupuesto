@@ -3,6 +3,7 @@ using ClosedXML.Excel;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using ManejoPresupuesto.Models;
 using ManejoPresupuesto.Servicios;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Data;
@@ -259,7 +260,6 @@ namespace ManejoPresupuesto.Controllers
             });
             return Json(eventosCalendario);
         }
-
         public async Task<JsonResult> ObtenerTransaccionesPorFecha(DateTime fecha)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
@@ -280,7 +280,6 @@ namespace ManejoPresupuesto.Controllers
             modelo.Categorias = await ObtenerCategorias(usuarioId, modelo.TipoOperacionId);
             return View (modelo);
         }
-
         [HttpPost]
         public async Task<IActionResult> Crear(TransaccionCreacionViewModel modelo)
         {
@@ -314,7 +313,6 @@ namespace ManejoPresupuesto.Controllers
             await repositorioTransacciones.Crear(modelo);
             return RedirectToAction("Index");
         }
-
         [HttpGet]
         public async Task<IActionResult> Editar (int id, string urlRetorno = null)
         {
@@ -339,7 +337,6 @@ namespace ManejoPresupuesto.Controllers
 
             return View(modelo);
         }
-
         [HttpPost]
         public async Task<IActionResult> Editar(TransaccionActualizacionViewModel modelo)
         {
@@ -380,7 +377,6 @@ namespace ManejoPresupuesto.Controllers
             }
             
         }
-
         [HttpPost]
         public async Task<IActionResult> Borrar(int id, string urlRetorno = null)
         {
@@ -402,15 +398,12 @@ namespace ManejoPresupuesto.Controllers
                 return LocalRedirect(urlRetorno);
             }
         }
-
         private async Task<IEnumerable<SelectListItem>> ObtenerCuentas(int usuarioId)
         {
             var cuentas = await repositorioCuentas.Buscar(usuarioId);
             return cuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
         }
-
-        private async Task<IEnumerable<SelectListItem>> ObtenerCategorias(int usuarioId,
-           TipoOperacion tipoOperacion)
+        private async Task<IEnumerable<SelectListItem>> ObtenerCategorias(int usuarioId,TipoOperacion tipoOperacion)
         {
             var categorias = await repositorioCategorias.Obtener(usuarioId, tipoOperacion);
             return categorias.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
