@@ -19,10 +19,10 @@ builder.Services.AddTransient<IUserStore<Usuario>, UsuarioStore>();
 builder.Services.AddIdentityCore<Usuario>(opciones =>
 {
     opciones.Password.RequireDigit = false;
-    opciones.Password.RequireLowercase= false;
-    opciones.Password.RequireUppercase= false;
-    opciones.Password.RequireNonAlphanumeric= false;
-});
+    opciones.Password.RequireLowercase = false;
+    opciones.Password.RequireUppercase = false;
+    opciones.Password.RequireNonAlphanumeric = false;
+}).AddErrorDescriber<MensajesDeErrorIdentity>(); //MENSAJES DE ERROR EN ESPAÑOL
 
 //Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
