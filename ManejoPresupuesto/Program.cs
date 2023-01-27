@@ -16,6 +16,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddTransient<IServicioReportes, ServicioReportes>();
 builder.Services.AddTransient<IRepositorioUsuarios, RepositorioUsuarios>();
 builder.Services.AddTransient<IUserStore<Usuario>, UsuarioStore>();
+builder.Services.AddTransient<SignInManager<Usuario>>();
 builder.Services.AddIdentityCore<Usuario>(opciones =>
 {
     opciones.Password.RequireDigit = false;
@@ -23,6 +24,14 @@ builder.Services.AddIdentityCore<Usuario>(opciones =>
     opciones.Password.RequireUppercase = false;
     opciones.Password.RequireNonAlphanumeric = false;
 }).AddErrorDescriber<MensajesDeErrorIdentity>(); //MENSAJES DE ERROR EN ESPAÑOL
+
+//USO DE COOKIES PARA AUTENTIFICACION
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+    options.DefaultSignOutScheme = IdentityConstants.ApplicationScheme;
+}).AddCookie(IdentityConstants.ApplicationScheme);
 
 //Configurar AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -42,6 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
