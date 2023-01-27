@@ -47,6 +47,32 @@ namespace ManejoPresupuesto.Controllers
                 return View(modelo);
             }
         }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login (LoginViewModel modelo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(modelo);
+            }
+            var resultado = await signInManager.PasswordSignInAsync(
+                modelo.Email, modelo.Password, modelo.Recuerdame,
+                lockoutOnFailure: false);
+            if (resultado.Succeeded)
+            {
+                return RedirectToAction("Index", "Transacciones");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Nombre de usuario o Password incorrecto");
+                return View(modelo);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Logout()
