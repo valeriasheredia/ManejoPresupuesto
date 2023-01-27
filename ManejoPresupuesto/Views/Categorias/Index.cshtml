@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Categoria>
+﻿@model PaginacionRespuesta<Categoria>
 
 @{
     ViewData["Title"] = "Categorías";
@@ -19,7 +19,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var categoria in Model)
+        @foreach(var categoria in Model.Elementos)
         {
             <tr>
                 <td>
